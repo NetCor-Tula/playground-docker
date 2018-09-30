@@ -1,4 +1,4 @@
-ssql:
+mssql:
   build: ./docker/mssql
   env_file: ./docker/mssql/.env
   ports:

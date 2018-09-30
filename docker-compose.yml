@@ -6,7 +6,7 @@ mssql:
 php:
   build: ./docker/php
   ports:
-    - "2222:22"
+    - "2221:22"
   links:
     - mssql
   volumes:

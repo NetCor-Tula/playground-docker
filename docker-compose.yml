@@ -1,0 +1,11 @@
+mssql:
+  build: ./docker/mssql
+  env_file: ./docker/mssql/.env
+  ports:
+    - "1433:1433"
+php:
+  build: ./docker/php
+  links:
+    - mssql
+  volumes:
+    - .:/data/

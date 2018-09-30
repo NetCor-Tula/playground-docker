@@ -32,7 +32,8 @@ RUN yum-config-manager --enable extras && \
            php72-php-intl
 
 # for last version info : https://packages.microsoft.com/rhel/7/prod/
-
+RUN yum -y nginx
+COPY default.conf /etc/nginx/conf.d/default.conf
 RUN ACCEPT_EULA=Y yum install -y msodbcsql17-17.2.0.1-1 mssql-tools-17.2.0.1-1 unixODBC-devel
 RUN echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bash_profile && \
     echo 'export PATH="$PATH:/opt/mssql-tools/bin"' >> ~/.bashrc  && \
@@ -45,8 +46,8 @@ RUN yum reinstall -y ca-certificates
 RUN yum clean all
 #RUN mkdir -p /var/log/php-fpm
 RUN ln -s /opt/remi/php72/root/sbin/php-fpm /usr/sbin/php-fpm
-RUN sed -i '/^listen =/c listen = 9000' /etc/opt/remi/php72/php-fpm.d/www.conf
-RUN sed -i '/^listen.allowed_clients/c;listen.allowed_clients ='  /etc/opt/remi/php72/php-fpm.d/www.conf
+#RUN sed -i '/^listen =/c listen = 9000' /etc/opt/remi/php72/php-fpm.d/www.conf
+#RUN sed -i '/^listen.allowed_clients/c;listen.allowed_clients ='  /etc/opt/remi/php72/php-fpm.d/www.conf
 #RUN sed -i '/^php_admin_value\[error_log\]/c php_admin_value[error_log] = /var/log/php-fpm/www-error.log' /etc/opt/remi/php72/php-fpm.d/www.conf
 #RUN ln -sf /dev/stderr /var/log/php-fpm/error.log
 CMD ["php-fpm", "--allow-to-run-as-root", "--nodaemonize"]
